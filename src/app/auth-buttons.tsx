@@ -8,15 +8,16 @@ type AuthButtonsProps = {
 export function AuthButtons({ isLoggedIn, userName }: AuthButtonsProps) {
     if (isLoggedIn) {
         return (
-            <div>
+            <div className="auth-controls">
                 <span>สวัสดี {userName ?? "ผู้ใช้งาน"}</span>
                 <form
+                    className="auth-form"
                     action={async () => {
                         "use server";
                         await signOut({ redirectTo: "/" });
                     }}
                 >
-                    <button type="submit">Logout</button>
+                    <button className="button button--quiet" type="submit">ออกจากระบบ</button>
                 </form>
             </div>
         );
@@ -24,13 +25,13 @@ export function AuthButtons({ isLoggedIn, userName }: AuthButtonsProps) {
 
     return (
         <form
+            className="auth-form"
             action={async () => {
                 "use server";
-                // เติม: ชื่อ provider ของ Google (ตัวพิมพ์เล็ก) 
-                await signIn("________", { redirectTo: "/" });
+                await signIn("google", { redirectTo: "/" });
             }}
         >
-            <button type="submit">Login with Google</button>
+            <button className="button" type="submit">เข้าสู่ระบบด้วย Google</button>
         </form>
     );
 } 
